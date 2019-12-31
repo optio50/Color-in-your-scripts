@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Demo for using color codes in your scripts
+
+#------------------------------------------////
+# 	  Loop to get all the color codes:
+#------------------------------------------////
+
+for c in {0..255}; do
+tput setaf $c; tput setaf $c | command cat -v; printf "%b\n" "     ###### tput code ###### $c";
+done
+#------------------------------------------////
+#	Assign the color "word" as a variable:
+# 	Change Color Numbers to your liking:
+#------------------------------------------////
+
+white=$(tput setaf 15)
+black=$(tput setaf 16)
+gray=$(tput setaf 240)
+blue=$(tput setaf 21)
+green=$(tput setaf 34)
+red=$(tput setaf 1)
+cyan=$(tput setaf 36)
+purple=$(tput setaf 128)
+brown=$(tput setaf 130)
+yellow=$(tput setaf 226)
+lgray=$(tput setaf 246)
+lblue=$(tput setaf 39)
+lgreen=$(tput setaf 118)
+lcyan=$(tput setaf 14)
+lred=$(tput setaf 9)
+lpurple=$(tput setaf 99)
+normal=$(tput sgr0)
+blink=$(tput blink)
+#------------------------------------------////
+# 			Array with Variables:
+#------------------------------------------////
+
+array=(
+"${white}" "############	 White	 	############ "${black}" <-----White"
+"${black}" "############	 Black	 	############ "${white}" <-----Black"
+"${gray}" "############	 Gray	 	############"
+"${blue}" "############	 Blue	 	############"
+"${green}" "############	 Green	 	############"
+"${red}" "############	 Red	 	############"
+"${cyan}" "############	 Cyan	 	############"
+"${purple}" "############	 Purple	 	############"
+"${brown}" "############	 Brown	 	############"
+"${yellow}" "############	 Yellow	 	############"
+"${lgray}" "############	 Light Gray	############"
+"${lblue}" "############	 Light Blue	############"
+"${lgreen}" "############	 Light Green	############"
+"${lcyan}" "############	 Light Cyan	############"
+"${lred}" "############	 Light Red	############"
+"${lpurple}" "############	 Light Purple	############"
+"${normal}" "############	 Normal	 	############"
+"${red}" "############ ${white}${blink} 	 Blink${normal}	 	${blue}############"
+)
+#------------------------------------------////
+# 				Print the Array:
+#------------------------------------------////
+
+printf "%b\n" "${array[@]}"
+printf "%b" "${normal}" "\n"
+#------------------------------------------////
+# 			Print as a single line:
+#------------------------------------------////
+
+printf "%b" "${red}" "      Combine colors "${white}"on the"${blue}" same line \n"
+printf "%b\n"

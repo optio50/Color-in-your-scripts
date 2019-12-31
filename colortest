@@ -10,7 +10,7 @@ for c in {0..255}; do
 tput setaf $c; tput setaf $c | command cat -v; printf "%b\n" "     ###### tput code ###### $c";
 done
 #------------------------------------------////
-#	Assign the color "word" as a variable:
+#	Assign the "color name" as a variable:
 # 	Change Color Numbers to your liking:
 #------------------------------------------////
 
@@ -57,13 +57,13 @@ array=(
 "${red}" "############ ${white}${blink} 	 Blink${normal}	 	${blue}############"
 )
 #------------------------------------------////
-# 				Print the Array:
+# 				Print the Array for Demo:
 #------------------------------------------////
 
 printf "%b\n" "${array[@]}"
 printf "%b" "${normal}" "\n"
 #------------------------------------------////
-# 			Print as a single line:
+# Print as a single line for use in a script:
 #------------------------------------------////
 
 printf "%b" "${red}" "      Combine colors "${white}"on the"${blue}" same line \n"

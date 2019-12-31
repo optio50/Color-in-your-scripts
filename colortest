@@ -8,7 +8,7 @@
 #------------------------------------------////
 
 for color in {0..255}; do
-tput setaf "${color}"; tput setaf "${color}" | command cat -v; printf "%b\n" "     ###### tput code ###### "${color}"";
+tput setaf "${color}"; tput setaf "${color}" | command cat -v; tput rev "${color}"; tput smul;  printf "%b\n" "  tput code  "${color}""; tput sgr0;
 done
 
 #------------------------------------------////

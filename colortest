@@ -2,7 +2,10 @@
 
 # Demo for using color codes in your scripts
 # Looks best with white text on black background
-# To learn more about tput http://www.linuxcommand.org/lc3_adv_tput.php
+# To learn more about tput https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html
+# In this example we use tput codes (right side) but you can use ansi codes as well
+# such as printf "\033[38;5;130mHello\033[0m\n" <--- prints "Hello" in brown with a mew line
+# Above the 38 5 130 are the ansi codes (left side) we printed out, \n is a new line
 #------------------------------------------////
 # 	  Loop to list all the color codes:
 #------------------------------------------////
@@ -35,10 +38,12 @@ lred=$(tput setaf 9)
 lcyan=$(tput setaf 14)
 lpurple=$(tput setaf 99)
 normal=$(tput sgr0)
+bold=$(tput bold)
+standout=$(tput smso)
 blink=$(tput blink)
 reverse=$(tput rev)
 blgray=$(tput setab 246)
-#  ^ Light Gray Background. setab instead of setaf
+#  ^ Background Light Gray. setab instead of setaf
 #------------------------------------------////
 # 			Array with Variables:
 #------------------------------------------////
@@ -69,9 +74,9 @@ array=(
 #------------------------------------------////
 #		Print the Array for Demo:
 #------------------------------------------////
-printf "%b\n" "${blue}"
-printf "%b\n" "${blgray}"
-command cat <<"EOF"
+printf "%b\n" "${yellow}"
+#printf "%b\n" "${blgray}"
+command cat << 'EOF'
   ____ ___  _     ___  ____      ____  _____ __  __  ___  
  / ___/ _ \| |   / _ \|  _ \    |  _ \| ____|  \/  |/ _ \ 
 | |  | | | | |  | | | | |_) |   | | | |  _| | |\/| | | | |
@@ -88,6 +93,31 @@ printf "%b" "${normal}" "\n"
 # Like you might use in a script:
 #------------------------------------------////
 
-printf "%b\n" "${red}" "      Combine colors "${white}"on the"${blue}" same line \n"
-printf "%b" "${normal}" "tput is a powerful cursor managment tool. To learn more visit" "\n\n"
-printf "%b\n\n" "http://www.linuxcommand.org/lc3_adv_tput.php"
+printf "%b\n" ""${red}"       Combine colors "${white}"on the "${standout}""${blue}"same line\n"
+printf "%b" "${normal}"
+printf "%b" "${normal}" "tput is a powerful cursor managment tool." "\n\n"
+
+printf "%b\n\n" " In addition to colors you can even clear certain portains of the screen"
+tput civis
+read -n 1 -s -p "Press a key to try it"
+tput cuu 27
+#tput dl 1
+#tput el
+tput ed
+printf "%b\n"
+printf "%b" "Or Replace it\n\n"
+read -n 1 -s -p "Press a key to try it"
+tput cuu 3
+tput dl 1
+printf "%b" "${array[@]}"
+printf "%b" ""${red}"       Combine colors "${white}"on the "${standout}""${blue}"same line\n"
+printf "%b\n" "${normal}"
+tput ed
+printf "%b\n"
+command cat << 'EOF'
+To learn more about tput visit
+
+https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html                                                          
+EOF
+tput cnorm
+printf "%b\n"

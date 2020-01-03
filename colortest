@@ -6,12 +6,18 @@
 # In this example we use tput codes (right side) but you can use ansi codes as well
 # such as printf "\033[38;5;130mHello\033[0m\n" <--- prints "Hello" in brown with a mew line
 # Above, the 38 5 130 are the ansi codes (left side) we printed out, \n is a new line
+
 #------------------------------------------////
-# 	  Loop to list all the color codes:
+# Loop to list all the Ansi & tput color codes:
 #------------------------------------------////
 
-for color in {0..255}; do
-tput setaf "${color}"; tput setaf "${color}" | command cat -v; tput rev "${color}"; tput smul;  printf "%b\n" "  tput code  "${color}""; tput sgr0;
+for color in {0..255}; do # Set Loop to 256 times
+tput setaf "${color}" # Set the color
+tput setaf "${color}" | command cat -v # Get the Ansi color code and print it in its color
+tput rev "${color}" # Highlight the tput code portion of text
+tput smul # Underline tput code portion of text
+printf "%b\n" "  tput code  "${color}"" # Display the Highlighted and Underlined tput code text
+tput sgr0 # Reset tput cursor attributes to normal
 done
 
 #------------------------------------------////
@@ -37,15 +43,16 @@ lgreen=$(tput setaf 118)
 lred=$(tput setaf 9)
 lcyan=$(tput setaf 14)
 lpurple=$(tput setaf 99)
-normal=$(tput sgr0)
 bold=$(tput bold)
-standout=$(tput smso)
-blink=$(tput blink)
-reverse=$(tput rev)
+blink=$(tput blink) # Blinking test
+reverse=$(tput rev) # reverse video mode
+normal=$(tput sgr0)
+
 blgray=$(tput setab 246)
-#  ^ Background Light Gray. setab instead of setaf
+#  ^ Background Light Gray. setab (background) instead of setaf (foreground)
+
 #------------------------------------------////
-# 			Array with Variables:
+#	Array Using the Color Variables:
 #------------------------------------------////
 
 array=(
@@ -71,11 +78,15 @@ array=(
 "${red}"   "############" "${white}""${reverse}""${blink}"   "       Blink        ""${normal}"	 	"${blue}""############\n"
 )
 
+
+
+
 #------------------------------------------////
-#		Print the Array for Demo:
+# Here Doc Banner
 #------------------------------------------////
-printf "%b\n" "${yellow}"
-#printf "%b\n" "${blgray}"
+
+printf "%b\n" "${yellow}" # Banner Text Color
+
 command cat << 'EOF'
   ____ ___  _     ___  ____      ____  _____ __  __  ___  
  / ___/ _ \| |   / _ \|  _ \    |  _ \| ____|  \/  |/ _ \ 
@@ -84,42 +95,64 @@ command cat << 'EOF'
  \____\___/|_____\___/|_| \_\   |____/|_____|_|  |_|\___/ 
                                                           
 EOF
+
+#------------------------------------------////
+#		Print the Array for Demo:
+#------------------------------------------////
+
 printf "%b\n" "${normal}"
 printf "%b" "${array[@]}"
 printf "%b" "${normal}" "\n"
 
 #------------------------------------------////
-# Print as a single line
+# Print as a single line in multiple colors
 # Like you might use in a script:
 #------------------------------------------////
 
-printf "%b\n" ""${red}"       Combine colors "${white}"on the "${standout}""${blue}"same line\n"
+printf "%b\n" ""${red}"       Combine colors "${white}"on the "${reverse}""${blue}"same line\n"
 printf "%b" "${normal}"
-printf "%b" "${normal}" "tput is a powerful cursor managment tool." "\n\n"
 
+#------------------------------------------////
+# tput example to remove a section of the screen
+# Like you might use in a script:
+#------------------------------------------////
+
+printf "%b" "${normal}" "tput is a powerful cursor managment tool." "\n\n"
 printf "%b\n\n" " In addition to colors you can even clear certain portions of the screen"
-tput civis
+tput civis # invisable cursor
 read -n 1 -s -p "Press a key to try it"
-tput cuu 28
-#tput dl 1
-#tput el
-tput ed
+
+#------------------------------------------////
+# Remove
+#------------------------------------------////
+
+tput cuu 28 # move cursor up
+tput ed # Clear to end of display
 printf "%b\n"
 printf "%b" "Or Replace it\n\n"
 read -n 1 -s -p "Press a key to try it"
-tput cuu 3
+
+#------------------------------------------////
+# Replace
+#------------------------------------------////
+
+tput cuu 3 # move cursor up
 printf "%b\n"
-tput ed
-printf "%b" "${array[@]}\n"
-printf "%b" ""${red}"       Combine colors "${white}"on the "${standout}""${blue}"same line\n"
+tput ed # Clear to end of display
+printf "%b" "${array[@]}\n" # Reprint the array on the desired section
+printf "%b" ""${red}"       Combine colors "${white}"on the "${reverse}""${blue}"same line\n" # not part of the array so display again
 printf "%b" "${normal}"
-tput ed
+tput ed # Clear to end of display
 printf "%b\n"
+
+#------------------------------------------////
+# Here Doc Info
+#------------------------------------------////
+
+# not part of the array so display again
 command cat << 'EOF'
 To learn more about tput visit
 
 https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html                                                          
 EOF
-tput cnorm
-#printf "%b\n"
-
+tput sgr0 # Reset tput cursor attributes to normal

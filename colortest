@@ -5,7 +5,7 @@
 # To learn more about tput https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html
 # In this example we use tput codes (right side) but you can use ansi codes as well
 # such as printf "\033[38;5;130mHello\033[0m\n" <--- prints "Hello" in brown with a mew line
-# Above the 38 5 130 are the ansi codes (left side) we printed out, \n is a new line
+# Above, the 38 5 130 are the ansi codes (left side) we printed out, \n is a new line
 #------------------------------------------////
 # 	  Loop to list all the color codes:
 #------------------------------------------////
@@ -97,10 +97,10 @@ printf "%b\n" ""${red}"       Combine colors "${white}"on the "${standout}""${bl
 printf "%b" "${normal}"
 printf "%b" "${normal}" "tput is a powerful cursor managment tool." "\n\n"
 
-printf "%b\n\n" " In addition to colors you can even clear certain portains of the screen"
+printf "%b\n\n" " In addition to colors you can even clear certain portions of the screen"
 tput civis
 read -n 1 -s -p "Press a key to try it"
-tput cuu 27
+tput cuu 28
 #tput dl 1
 #tput el
 tput ed
@@ -108,10 +108,11 @@ printf "%b\n"
 printf "%b" "Or Replace it\n\n"
 read -n 1 -s -p "Press a key to try it"
 tput cuu 3
-tput dl 1
-printf "%b" "${array[@]}"
+printf "%b\n"
+tput ed
+printf "%b" "${array[@]}\n"
 printf "%b" ""${red}"       Combine colors "${white}"on the "${standout}""${blue}"same line\n"
-printf "%b\n" "${normal}"
+printf "%b" "${normal}"
 tput ed
 printf "%b\n"
 command cat << 'EOF'
@@ -120,4 +121,5 @@ To learn more about tput visit
 https://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html                                                          
 EOF
 tput cnorm
-printf "%b\n"
+#printf "%b\n"
+
